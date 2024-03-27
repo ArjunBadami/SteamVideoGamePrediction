@@ -1,0 +1,30 @@
+UCSD FALL 2023
+CSE 258
+Assignment 1
+
+Name: Arjun H. Badami
+PID: A13230476
+
+
+Task 1
+For this task, I have implemented a Bayesian Personalized Ranking model using the Tensorflow library. The hyperparameters used to train this model are:
+K=5
+Lambda=0.00001
+The entire corpus of 175,000 entries was used to train the model.
+For each (user,game) pair in the test set, that game was given a score using the predict() function of the BPR model class. This score represents the likelihood that a particular user would play that game. 
+For a particular user, all games they are paired with in the test set are then ranked according to these scores. The top half of games according to these rankings are given a final prediction of 1 (indicating the user will play those games), and the bottom half of the games according to these rankings are given a final prediction of 0 (indicating the user will NOT play those games). Hence, for each user in the test set, exactly half the games they are paired with will receive a prediction of 1, and the other half will receive a prediction of 0.
+
+
+Task 2
+For this task, I have used a Latent Factor model. The alpha and both the beta terms were trained using an iterative update approach similar to the solution of Homework 3. For this task, the alpha, betaI and betaU terms were trained using all 175,000 entries in the training data set. The lambda used to iteratively update the betaU coefficients is 8.1, and the lambda used to iteratively update the betaI coefficients is 2.5.
+Additionally, I have used the Tensorflow library to implement an LFM, for only the gamma terms. The hyperparameters used to train this model are:
+K=1
+Lambda=5
+
+The final 'hours_transformed' prediction for every (u,g) pair in the test set is calculated according to the following formula:
+
+prediction = alpha + betaU[u] + betaI[g] + 100*(gammaU[u].gammaI[g])
+
+In the formula above, the alpha, betaU and betaI variables were all calculated using the iterative update until convergence. 
+The gammaU and gammaI terms were calculated using the Tensorflow library. 
+A constant of 100 was multiplied to the final term in the equation to increase its influnce on the final prediction value.
